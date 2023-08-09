@@ -95,14 +95,14 @@ upload = multer({
   router.get("/fetchMyProfile", checkUserAuth,  userControllers.fetchMyProfile);
   //done
   router.get("/fetchInvestorUser", checkUserAuth, userControllers.fetchInvestorupUser);
-  router.get("/fetchAllInvester", checkUserAuth, userControllers.fetchInvestorupUser);
+  router.get("/fetchAllInvester", checkUserAuth, userControllers.fetchInvestorupUser); //todo
   // router.get("/fetchAllInvester", checkUserAuth, userControllers.fetchAllInvesterUser);
 
   router.post("/sentNotification", checkUserAuth, userControllers.sentNotification);
   //not use
   router.post("/allNotificationStartUp", checkUserAuth, userControllers.NoficationStatupStartUp);
   //user
-  router.get("/fetchNotification",  userControllers.fetchNotification);
+  router.get("/fetchNotification",  checkUserAuth, userControllers.fetchNotification);
   router.post("/acceptRequest", checkUserAuth,  userControllers.acceptRequest);
   router.post("/rejectedRequest", checkUserAuth,  userControllers.rejectedRequest);
 

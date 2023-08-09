@@ -24,7 +24,10 @@ const investorSchema = new mongoose.Schema({
     type: String,
     enum: ['Investor']
   },
-
+  intrestedIn:{
+    type:[mongoose.Schema.Types.ObjectId],
+    default: []
+  },
   otp: {
     type: String,
   },

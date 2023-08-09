@@ -66,12 +66,12 @@ uploadImg = multer({
     router.get("/fetchMyProfile", checkUserAuth,  investorControllers.fetchMyProfile);
     router.get("/fetchInvesterUser", checkUserAuth, investorControllers.fetchInvesterUser);
     //work
-    router.get("/fetchStartupUser", investorControllers.fetchStartupUser);
+    router.get("/fetchStartupUser", checkUserAuth, investorControllers.fetchStartupUser); //todo
 
     router.post("/sentNotification", checkUserAuth,  investorControllers.sentNotification);
     router.post("/allNotificationInvester", checkUserAuth,  investorControllers.NoficationInvester);
     //work
-    router.get("/fetchNotification",  investorControllers.fetchNotification);
+    router.get("/fetchNotification", checkUserAuth, investorControllers.fetchNotification);
     //work
     router.post("/acceptRequest", checkUserAuth,  investorControllers.acceptRequest);
     router.post("/rejectedRequest", checkUserAuth,  investorControllers.rejectedRequest);

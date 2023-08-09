@@ -1,6 +1,6 @@
 let mongoose =require('mongoose');
 //connection
-mongoose.connect(process.env.DB_url,{
+mongoose.connect("mongodb+srv://spine:spine@cluster0.cgkeyuo.mongodb.net/spine",{
     useUnifiedTopology: true,
      useNewUrlParser: true,
     }).
