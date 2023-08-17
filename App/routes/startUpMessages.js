@@ -26,6 +26,6 @@ router.get("/startup/getmsg", getMessages);
 router.get("/startup/getConnectedUsers", getConnectedUsers);
 router.delete("/startup/delmsg", deleteMessage);
 
-app.use('/',router)
+app.use('/',router);
 }
 

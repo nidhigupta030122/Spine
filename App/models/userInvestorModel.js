@@ -43,5 +43,5 @@ const investorSchema = new mongoose.Schema({
     timestamps: true
   }
 )
-const userModels = mongoose.model("investor", investorSchema)
-module.exports = userModels;
+const investorModels = mongoose.model("investor", investorSchema)
+module.exports = investorModels;

@@ -8,7 +8,7 @@ module.exports.checkUserAuth = async (req, res, next) => {
     try {
       // Get Token from header
       token = authorization.split(" ")[1];
-
+      console.log('token',token);
       // Verify Token
       const { userID } = jwt.verify(token, process.env.JWT_SECRET_KEY);
       console.log("userId", userID);

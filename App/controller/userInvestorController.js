@@ -820,7 +820,7 @@ module.exports.fetchStartupUser = async (req, res, next) => {
   try {
     const user_id = req.user._id;
     // const user_id = "64b64a1b69f50d0bd4f8b36e";
-
+    console.log('userId',user_id);
     // Find notifications sent by user_id
     // const sentNotifications = await NotificationModel.find({ user_id: user_id });
     const sentNotifications = await investorNotification.find({
@@ -839,12 +839,12 @@ module.exports.fetchStartupUser = async (req, res, next) => {
       { $match: { otp_verified: true } },
       { $sample: { size: 100000000 } },
     ]);
-
+    console.log('user not notification',usersNotInNotification);
     let newUsersNotInNotification = filterDataByMyId(
       user_id,
       usersNotInNotification
     );
-
+console.log('new notification',newUsersNotInNotification);
     if (newUsersNotInNotification.length > 0) {
       return res.status(200).json({
         status: true,
@@ -904,9 +904,9 @@ module.exports.updateImage = async (req, res, next) => {
 module.exports.changePassword = async (req, res, next) => {
   try {
     const { oldPassword, newPassword, cofirmPassword } = req.body;
-
-    const checkpassword = await investorModel.findOne({ _id: req.user._id });
-
+    console.log('Request Body',req.user);
+    const checkpassword = await investorModel.findOne({ _id: req.user._id } );
+    console.log(checkpassword);
     const comparePassword = await bcrypt.compare(
       oldPassword,
       checkpassword.password
@@ -930,7 +930,7 @@ module.exports.changePassword = async (req, res, next) => {
         },
         { new: true }
       );
-
+      console.log("changePassword", changePassword);
       return res.status(200).json({
         status: false,
         message: "Password change successfully",
@@ -938,6 +938,7 @@ module.exports.changePassword = async (req, res, next) => {
       });
     }
   } catch (err) {
+    console.log('Error message',err.message);    
     return res.status(401).json({
       status: false,
       message: err.message,

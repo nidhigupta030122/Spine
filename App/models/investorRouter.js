@@ -39,7 +39,7 @@ upload = multer({
 //authRouter..........................................................................................
 router.post("/updateProfile",checkUserAuth);
 router.post("/getProfile",checkUserAuth);
-router.post("/ChangePassword",checkUserAuth);
+// router.post("/ChangePassword",checkUserAuth);
 // router.post("/setPassword",checkUserAuth);
 
 

@@ -22,7 +22,7 @@ module.exports.checkUserAuth = async (req, res, next) => {
       }
       next();
     } catch (error) {
-      console.log("what error..................", error);
+      console.log("Error2", error);
       res.status(401).send({ status: false, message: "Unauthorized User" });
     }
   }

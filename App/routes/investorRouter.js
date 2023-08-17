@@ -49,9 +49,7 @@ uploadImg = multer({
     router.post("/updateSecurity",checkUserAuth,investorControllers.updateSecurity);
     router.post("/updateProfile",checkUserAuth,uploadImg.single('file'),investorControllers.updateProfile);
     router.get("/getProfile",checkUserAuth,investorControllers.GetProfile);
-    router.post("/ChangePassword",investorControllers.changePassword);
-
-
+    // router.post("/ChangePassword",investorControllers.changePassword);
     router.post("/forgotPassword",investorControllers.forgotPassword);
     router.post("/resendOtp",investorControllers.resendOtp);
     router.post("/verifyotp",investorControllers.verifyotp);
@@ -78,7 +76,7 @@ uploadImg = multer({
 
 
 
-  app.use('/investor',router)
+  app.use('/investor',router);
 }
 
 
