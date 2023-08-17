@@ -1042,7 +1042,7 @@ module.exports.changeStartupPassword = async (req, res, next) => {
       );
 
       return res.status(200).json({
-        status: false,
+        status: true,
         message: "Password change successfully",
         response: changePassword,
       });
