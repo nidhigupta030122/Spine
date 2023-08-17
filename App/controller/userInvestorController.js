@@ -932,7 +932,7 @@ module.exports.changePassword = async (req, res, next) => {
       );
       console.log("changePassword", changePassword);
       return res.status(200).json({
-        status: false,
+        status: true,
         message: "Password change successfully",
         response: changePassword,
       });
