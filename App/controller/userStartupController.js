@@ -890,7 +890,7 @@ module.exports.filterDataByMyId = (myId, data) => {
   
 return newData.filter(
     (item) =>
-      !item.intrestedIn === myObjectId.toString()
+      !item.intrestedIn.find((id) => id.toString() === myObjectId.toString())
   );
 
 };
