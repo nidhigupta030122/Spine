@@ -882,32 +882,31 @@ module.exports.fetchMyProfile = async (req, res, next) => {
 
 module.exports.filterDataByMyId = (myId, data) => {
   let newData = data;
-  const id =newData[0]._id;
-  console.log('newData',newData)
+  const id = newData[0]._id;
+  console.log("newData", newData);
   const myObjectId = new ObjectId(myId);
-  console.log('myobjid',myObjectId);
-  console.log('dataId',id);
-  
-return newData.filter(
+  console.log("myobjid", myObjectId);
+  console.log("dataId", id);
+
+  return newData.filter(
     (item) =>
       !item.intrestedIn.find((id) => id.toString() === myObjectId.toString())
   );
-
 };
 
 module.exports.fetchInvestorupUser = async (req, res, next) => {
   try {
     const user_id = req.user._id;
-    console.log('user',user_id);
+    console.log("user", user_id);
     // Find notifications sent by user_id
     // const sentNotifications = await investorNotificationModel.find({ user_id: user_id });
     const sentNotifications = await notification.find({ user_id: user_id });
-    console.log('sent',sentNotifications);
+    console.log("sent", sentNotifications);
     // Extract the recipient user IDs from sentNotifications
     const recipientIds = sentNotifications.map(
       (notification) => notification.to_send
     );
-console.log('rec',recipientIds);
+    console.log("rec", recipientIds);
     // Find users whose IDs are not present in the recipientIds array
     // const usersNotInNotification = await investorModel.find([{ _id: { $nin: recipientIds } },{ $sample: { } }]);
     const usersNotInNotification = await investorModel.aggregate([
@@ -915,12 +914,12 @@ console.log('rec',recipientIds);
       { $match: { otp_verified: true } },
       { $sample: { size: 100000000 } },
     ]);
-console.log('user1',usersNotInNotification);
+    console.log("user1", usersNotInNotification);
     let newUsersNotInNotification = this.filterDataByMyId(
       user_id,
       usersNotInNotification
     );
-console.log('newUserNoti',newUsersNotInNotification);
+    console.log("newUserNoti", newUsersNotInNotification);
     if (newUsersNotInNotification.length > 0) {
       return res.status(200).json({
         status: true,
@@ -935,7 +934,7 @@ console.log('newUserNoti',newUsersNotInNotification);
       });
     }
   } catch (err) {
-    console.log('err1',err.message);
+    console.log("err1", err.message);
     return res.status(401).json({
       status: false,
       message: err.message,
@@ -944,6 +943,42 @@ console.log('newUserNoti',newUsersNotInNotification);
   }
 };
 
+// ============================================================================
+// filter startup data
+// ============================================================================
+module.exports.filterStartupData = async (req, res, next) => {
+  const { stStage, location, chooseIndustry, ticketSize } = req.query;
+  console.log(req.query);
+  try {
+    let match = {};
+    if (stStage) {
+      match.startupStage = new RegExp(stStage, "i");
+    }
+    if (location) {
+      match.location = new RegExp(location, "i");
+    }
+    if (chooseIndustry) {
+      match.chooseIndustry = new RegExp(chooseIndustry, "i");
+    }
+    if (ticketSize) {
+      match.ticketSize = new RegExp(ticketSize, "i");
+    }
+    const fetchProfile = await UserModel.aggregate([
+      { $match: match }
+    ]);
+
+    return res.status(200).json({
+      status: true,
+      response: fetchProfile,
+    });
+  } catch (err) {
+    return res.status(401).json({
+      status: false,
+      message: err.message,
+      stack: err.stack,
+    });
+  }
+};
 module.exports.fetchAllInvesterUser = async (req, res, next) => {
   try {
     const fetchProfile = await investorModel.find();
@@ -1013,7 +1048,7 @@ module.exports.updateStartupImage = async (req, res, next) => {
 module.exports.changeStartupPassword = async (req, res, next) => {
   try {
     const { oldPassword, newPassword, cofirmPassword } = req.body;
-    console.log('change Password',req.user);
+    console.log("change Password", req.user);
 
     const checkpassword = await UserModel.findOne({ _id: req.user._id });
 
@@ -1139,7 +1174,7 @@ module.exports.fetchNotification = async (req, res, next) => {
     } else {
       return res.status(200).json({
         status: false,
-        message: "There is not notification",
+        message: "Notification is not available",
         response: [],
       });
     }

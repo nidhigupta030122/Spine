@@ -57,7 +57,7 @@ uploadImg = multer({
     router.post("/verifySecurity",investorControllers.verifySecurity);
     router.post("/setPassword",investorControllers.setPassword);
     router.post("/updateProfile2",investorControllers.updateProfileSetup2);
-
+    router.get("/filterInvestorData",investorControllers.filterInvestorData);
     router.post("/MyProfile", checkUserAuth, uploadImg.single('file'), investorControllers.MyProfile);
     router.post("/updateImage", checkUserAuth, uploadImg.single('file'), investorControllers.updateImage);
     router.post("/changePassword", checkUserAuth,  investorControllers.changePassword);

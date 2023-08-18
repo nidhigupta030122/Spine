@@ -95,6 +95,7 @@ upload = multer({
   router.get("/fetchMyProfile", checkUserAuth,  userControllers.fetchMyProfile);
   //done
   router.get("/fetchInvestorUser", checkUserAuth, userControllers.fetchInvestorupUser);
+  router.get("/filterStartupData",userControllers.filterStartupData);
   router.get("/fetchAllInvester", checkUserAuth, userControllers.fetchInvestorupUser); //todo
   // router.get("/fetchAllInvester", checkUserAuth, userControllers.fetchAllInvesterUser);
 

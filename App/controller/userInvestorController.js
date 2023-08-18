@@ -1032,7 +1032,7 @@ module.exports.fetchNotification = async (req, res, next) => {
     } else {
       return res.status(200).json({
         status: false,
-        message: "There is no notification",
+        message: "Notification is not available",
         response: [],
       });
     }
@@ -1141,6 +1141,43 @@ module.exports.rejectedRequest = async (req, res, next) => {
     return res.status(200).json({
       status: true,
       message: "request rejected successfully",
+    });
+  } catch (err) {
+    return res.status(401).json({
+      status: false,
+      message: err.message,
+      stack: err.stack,
+    });
+  }
+};
+
+//*****************************************************************************************************************************/
+//filter request
+//****************************************************************************************************************************/
+module.exports.filterInvestorData = async (req, res, next) => {
+  const { stStage, location, chooseIndustry, ticketSize } = req.query;
+  console.log(req.query);
+  try {
+    let match = {};
+    if (stStage) {
+      match.startupStage = new RegExp(stStage, "i");
+    }
+    if (location) {
+      match.location = new RegExp(location, "i");
+    }
+    if (chooseIndustry) {
+      match.chooseIndustry = new RegExp(chooseIndustry, "i");
+    }
+    if (ticketSize) {
+      match.ticketSize = new RegExp(ticketSize, "i");
+    }
+    const fetchProfile = await UserModel.aggregate([
+      { $match: match }
+    ]);
+
+    return res.status(200).json({
+      status: true,
+      response: fetchProfile,
     });
   } catch (err) {
     return res.status(401).json({
